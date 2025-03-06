@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pick-up Point Selector</title>
+</head>
+<body>
+    <button class="packeta-selector-open" onclick="Packeta.Widget.pick(packetaApiKey, showSelectedPickupPoint, packetaOptions)">Select pick-up point</button>
+    <div class="packeta-selector-value"></div>
+
+    <script src="https://widget.packeta.com/www/js/library.js"></script>
+    <script>
+        const packetaApiKey = '197fd6840f332ccf'; // replace this with your API Key          
+        const packetaOptions = {
+            language: "en",
+            valueFormat: "\"Packeta\",id,carrierId,carrierPickupPointId,name,city,street", 
+            view: "modal", 
+            vendors: [
+
+                {country: "ro", group: "rosamedaybox", carrierId: "7455"},
+                
+            ]
+        };
+
+        function showSelectedPickupPoint(point) {
+            const saveElement = document.querySelector(".packeta-selector-value");
+            // Add here an action on pickup point selection
+            saveElement.innerText = '';
+            if (point) {
+                console.log("Selected point", point);
+                saveElement.innerText = "Address: " + point.formatedValue; 
+            }
+        }
+    </script>
+</body>
+</html>

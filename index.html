@@ -35,7 +35,7 @@
         const { vendorCode, country, bounds } = data;
 
         // Build the widget URL
-        const widgetUrl = `https://web.widget.packeta.com/v6/?apikey=197fd6840f332ccf&baseUrl=https%3A%2F%2Fwww.zasilkovna.cz%2Fen%2Fpick-up-points&centerCountry=${country}&centerBounds=${bounds.north}%2C${bounds.east}%2C${bounds.south}%2C${bounds.west}&language=en&layout=web&User_VendorCodes=${vendorCode}`;
+        const widgetUrl = `https://web.widget.packeta.com/v6/?apikey=197fd6840f332ccf&baseUrl=https%3A%2F%2Fwww.zasilkovna.cz%2Fen%2Fpick-up-points&centerCountry=${country}&centerBounds=${bounds.north}%2C${bounds.east}%2C${bounds.south}%2C${bounds.west}&language=en&layout=web`;
 
         // Create an iframe to embed the Packeta widget
         const iframe = document.createElement('iframe');
@@ -43,6 +43,13 @@
         iframe.style.width = '100%';
         iframe.style.height = '100%';
         iframe.frameBorder = '0';
+        iframe.onload = () => {
+          // Try to select the 'RO Sameday Easybox' vendor checkbox
+          const vendorCheckbox = iframe.contentWindow.document.querySelector('#webWidgetFilterVendor_RO-LHYAGK');
+          if (vendorCheckbox) {
+            vendorCheckbox.click(); // Simulate clicking the checkbox to filter by vendor
+          }
+        };
 
         // Append the iframe to the widget container
         document.getElementById('widget-container').appendChild(iframe);
